@@ -2,22 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Vacante;
 use App\Categoria;
-use App\Experiencia;
-use App\Ubicacion;
-use App\Salario;
 use Illuminate\Http\Request;
 
-class VacanteController extends Controller
+class CategoriaController extends Controller
 {
-
-    public function __construct()
-    {
-        // User must have been authenticated and verified
-        $this->middleware(['auth', 'verified']);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +14,7 @@ class VacanteController extends Controller
      */
     public function index()
     {
-        return view('vacantes.index');
+        //
     }
 
     /**
@@ -35,11 +24,7 @@ class VacanteController extends Controller
      */
     public function create()
     {
-        $categorias = Categoria::all();
-        $experiencias = Experiencia::all();
-        $ubicaciones = Ubicacion::all();
-        $salarios = Salario::all();
-        return view('vacantes.create', compact('categorias', 'experiencias', 'ubicaciones', 'salarios'));
+        //
     }
 
     /**
@@ -56,10 +41,10 @@ class VacanteController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Vacante  $vacante
+     * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function show(Vacante $vacante)
+    public function show(Categoria $categoria)
     {
         //
     }
@@ -67,10 +52,10 @@ class VacanteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Vacante  $vacante
+     * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vacante $vacante)
+    public function edit(Categoria $categoria)
     {
         //
     }
@@ -79,10 +64,10 @@ class VacanteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Vacante  $vacante
+     * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vacante $vacante)
+    public function update(Request $request, Categoria $categoria)
     {
         //
     }
@@ -90,10 +75,10 @@ class VacanteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Vacante  $vacante
+     * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vacante $vacante)
+    public function destroy(Categoria $categoria)
     {
         //
     }
