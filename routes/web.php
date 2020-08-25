@@ -22,3 +22,7 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('vacantes', 'VacanteController');
+
+Route::post('/vacantes/imagen', 'VacanteController@imagen')->name('vacantes.imagen');
+
+Route::post('/vacantes/borrarimagen', 'VacanteController@borrarimagen')->name('vacantes.borrar');

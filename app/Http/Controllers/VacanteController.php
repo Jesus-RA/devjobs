@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Salario;
 use App\Vacante;
 use App\Categoria;
-use App\Experiencia;
 use App\Ubicacion;
-use App\Salario;
+use App\Experiencia;
+use App\Skill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class VacanteController extends Controller
 {
@@ -39,7 +41,8 @@ class VacanteController extends Controller
         $experiencias = Experiencia::all();
         $ubicaciones = Ubicacion::all();
         $salarios = Salario::all();
-        return view('vacantes.create', compact('categorias', 'experiencias', 'ubicaciones', 'salarios'));
+        $skills = Skill::all(['id', 'nombre']);
+        return view('vacantes.create', compact('categorias', 'experiencias', 'ubicaciones', 'salarios', 'skills'));
     }
 
     /**
@@ -50,7 +53,16 @@ class VacanteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'titulo' => 'required|min:8',
+            'categoria' => 'required',
+            'experiencia' => 'required',
+            'ubicacion' => 'required',
+            'salario' => 'required',
+            'descripcion' => 'required|min:50',
+            'imagen' => 'required',
+            
+        ]);
     }
 
     /**
@@ -96,5 +108,26 @@ class VacanteController extends Controller
     public function destroy(Vacante $vacante)
     {
         //
+    }
+
+    public function imagen(Request $request){
+        $image = $request->file('file');
+        $nameImage = time() . '.' . $image->extension() ;
+        $image->move( public_path( 'storage/vacantes/'), $nameImage);
+
+        return response()->json(['correcto' => $nameImage]);
+    }
+
+    public function borrarimagen(Request $request){
+        if($request->ajax()){
+            $image =  $request->imagen;
+
+            if( File::exists('storage/vacantes/'. $image) ){
+                File::delete('storage/vacantes/'. $image);
+                return response('Imagen eliminada', 200);
+            }
+
+            return response('No se encontró la imagen');
+        }
     }
 }
