@@ -5,6 +5,7 @@
                 v-for="(skill, index) in this.skills" :key="index"
                 @click="selectSkill(skill.nombre, $event)"
                 class="border border-gray-500 px-10 py-3 mb-3 rounded mr-4"
+                :class="isSelected(skill.nombre)"
             >{{ skill.nombre }}</li>
         </ul>
         <input type="hidden" name="skills" id="skills">
@@ -15,11 +16,23 @@
     export default {
         props: [
             'skills',
+            'oldskills',
         ],
         data(){
             return {
                 selectedSkills: new Set(),
             }
+        },
+        created(){
+            if(this.oldskills){
+                const skillsArray = this.oldskills.split(',');
+                skillsArray.forEach(skill => {
+                    this.selectedSkills.add(skill)
+                });
+            }
+        },
+        mounted(){
+            document.querySelector('#skills').value = this.oldskills;
         },
         methods: {
 
@@ -39,6 +52,10 @@
 
                 const sendSkills = [...this.selectedSkills];
                 document.querySelector('#skills').value = sendSkills;
+            },
+
+            isSelected(skill){
+                return this.selectedSkills.has(skill) ? 'bg-teal-400' : '';
             }
 
         }

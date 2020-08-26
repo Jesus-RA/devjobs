@@ -39,24 +39,24 @@
         </div>
         
         <div class="mb-5">
-            <label for="categoria" class="block text-gray-700 text-sm mb-2">Categoría: </label>
+            <label for="categoria_id" class="block text-gray-700 text-sm mb-2">Categoría: </label>
 
             <select
-                name="categoria"
-                id="categoria"
+                name="categoria_id"
+                id="categoria_id"
                 class="block appearance-none w-full border border-gray-200 text-gray-700
                         rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500
                         p-3 bg-gray-100"
             >
                 <option disabled selected> -- Categoría -- </option>
                 @foreach ($categorias as $categoria)
-                    <option value="{{ $categoria->id }}" {{ old('categoria') == $categoria->id ? 'selected' : '' }}>
+                    <option value="{{ $categoria->id }}" {{ old('categoria_id') == $categoria->id ? 'selected' : '' }}>
                         {{ $categoria->nombre }}
                     </option>
                 @endforeach
             </select>
 
-            @error('categoria')
+            @error('categoria_id')
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 roundede relative mt-3 mb-6" role="alert">
                     <strong class="font-bold">Error!</strong>
                     <span class="block">{{ $message }}</span>
@@ -65,24 +65,24 @@
         </div>
 
         <div class="mb-5">
-            <label for="experiencia" class="block text-gray-700 text-sm mb-2">Experiencia: </label>
+            <label for="experiencia_id" class="block text-gray-700 text-sm mb-2">Experiencia: </label>
 
             <select
-                name="experiencia"
-                id="experiencia"
+                name="experiencia_id"
+                id="experiencia_id"
                 class="block appearance-none w-full border border-gray-200 text-gray-700
                         rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500
                         p-3 bg-gray-100"
             >
                 <option disabled selected> -- Experiencia -- </option>
                 @foreach ($experiencias as $experiencia)
-                    <option value="{{ $experiencia->id }}" {{ old('experiencia') == $experiencia->id ? 'selected' : '' }}>
+                    <option value="{{ $experiencia->id }}" {{ old('experiencia_id') == $experiencia->id ? 'selected' : '' }}>
                         {{ $experiencia->nombre }}
                     </option>
                 @endforeach
             </select>
 
-            @error('experiencia')
+            @error('experiencia_id')
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 roundede relative mt-3 mb-6" role="alert">
                     <strong class="font-bold">Error!</strong>
                     <span class="block">{{ $message }}</span>
@@ -91,24 +91,24 @@
         </div>
         
         <div class="mb-5">
-            <label for="ubicacion" class="block text-gray-700 text-sm mb-2">Ubicación: </label>
+            <label for="ubicacion_id" class="block text-gray-700 text-sm mb-2">Ubicación: </label>
 
             <select
-                name="ubicacion"
-                id="ubicacion"
+                name="ubicacion_id"
+                id="ubicacion_id_id"
                 class="block appearance-none w-full border border-gray-200 text-gray-700
                         rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500
                         p-3 bg-gray-100"
             >
                 <option disabled selected> -- Ubicación -- </option>
                 @foreach ($ubicaciones as $ubicacion)
-                    <option value="{{ $ubicacion->id }}" {{ old('ubicacion') == $ubicacion->id ? 'selected' : '' }}>
+                    <option value="{{ $ubicacion->id }}" {{ old('ubicacion_id') == $ubicacion->id ? 'selected' : '' }}>
                         {{ $ubicacion->nombre }}
                     </option>
                 @endforeach
             </select>
 
-            @error('ubicacion')
+            @error('ubicacion_id')
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 roundede relative mt-3 mb-6" role="alert">
                     <strong class="font-bold">Error!</strong>
                     <span class="block">{{ $message }}</span>
@@ -117,24 +117,24 @@
         </div>
         
         <div class="mb-5">
-            <label for="salario" class="block text-gray-700 text-sm mb-2">Salario: </label>
+            <label for="salario_id" class="block text-gray-700 text-sm mb-2">Salario: </label>
 
             <select
-                name="salario"
-                id="salario"
+                name="salario_id"
+                id="salario_id"
                 class="block appearance-none w-full border border-gray-200 text-gray-700
                         rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500
                         p-3 bg-gray-100"
             >
                 <option disabled selected> -- Salario -- </option>
                 @foreach ($salarios as $salario)
-                    <option value="{{ $salario->id }}" {{ old('salario') == $salario->id ? 'selected' : '' }}>
+                    <option value="{{ $salario->id }}" {{ old('salario_id') == $salario->id ? 'selected' : '' }}>
                         {{ $salario->nombre }}
                     </option>
                 @endforeach
             </select>
 
-            @error('salario')
+            @error('salario_id')
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 roundede relative mt-3 mb-6" role="alert">
                     <strong class="font-bold">Error!</strong>
                     <span class="block">{{ $message }}</span>
@@ -165,7 +165,7 @@
             <input type="hidden" name="imagen" id="imagen" value="{{ old('imagen') }}">
             <p id="error"></p>
 
-            @error('descripcion')
+            @error('imagen')
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 roundede relative mt-3 mb-6" role="alert">
                     <strong class="font-bold">Error!</strong>
                     <span class="block">{{ $message }}</span>
@@ -174,12 +174,19 @@
         </div>
 
         <div class="mb-5">
-            <label for="skill" class="block text-gray-700 text-sm mb-2">
-                Habilidades y conocimientos:
-            </label>
+            <label for="skill" class="block text-gray-700 text-sm mb-5">
+                Habilidades y conocimientos: <span class="xs">(Elige al menos 3)</span>
+            </label>            
             <lista-skills
                 :skills="{{ json_encode($skills) }}"
+                :oldskills="{{ json_encode( old('skills') ) }}"
             ></lista-skills>
+            @error('skills')
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 roundede relative mt-3 mb-6" role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block">{{ $message }}</span>
+                </div>
+            @enderror
         </div>
         
         <div class="mb-5">

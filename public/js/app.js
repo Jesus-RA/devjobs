@@ -1933,12 +1933,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['skills'],
+  props: ['skills', 'oldskills'],
   data: function data() {
     return {
       selectedSkills: new Set()
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    if (this.oldskills) {
+      var skillsArray = this.oldskills.split(',');
+      skillsArray.forEach(function (skill) {
+        _this.selectedSkills.add(skill);
+      });
+    }
+  },
+  mounted: function mounted() {
+    document.querySelector('#skills').value = this.oldskills;
   },
   methods: {
     selectSkill: function selectSkill(skill, event) {
@@ -1959,6 +1973,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var sendSkills = _toConsumableArray(this.selectedSkills);
 
       document.querySelector('#skills').value = sendSkills;
+    },
+    isSelected: function isSelected(skill) {
+      return this.selectedSkills.has(skill) ? 'bg-teal-400' : '';
     }
   }
 });
@@ -37557,6 +37574,7 @@ var render = function() {
           {
             key: index,
             staticClass: "border border-gray-500 px-10 py-3 mb-3 rounded mr-4",
+            class: _vm.isSelected(skill.nombre),
             on: {
               click: function($event) {
                 return _vm.selectSkill(skill.nombre, $event)

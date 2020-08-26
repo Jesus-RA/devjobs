@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Skill;
 use App\Salario;
 use App\Vacante;
 use App\Categoria;
 use App\Ubicacion;
 use App\Experiencia;
-use App\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use App\Http\Requests\VacanteRequest;
 
 class VacanteController extends Controller
 {
@@ -51,18 +52,14 @@ class VacanteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VacanteRequest $request)
     {
-        $request->validate([
-            'titulo' => 'required|min:8',
-            'categoria' => 'required',
-            'experiencia' => 'required',
-            'ubicacion' => 'required',
-            'salario' => 'required',
-            'descripcion' => 'required|min:50',
-            'imagen' => 'required',
-            
-        ]);
+        auth()
+            ->user()
+            ->vacantes()
+            ->create($request->all());
+
+        return redirect()->route('vacantes.index');
     }
 
     /**
