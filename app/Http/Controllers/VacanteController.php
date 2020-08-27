@@ -18,7 +18,7 @@ class VacanteController extends Controller
     public function __construct()
     {
         // User must have been authenticated and verified
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth', 'verified'])->except('show');
     }
 
     /**
@@ -28,7 +28,8 @@ class VacanteController extends Controller
      */
     public function index()
     {
-        return view('vacantes.index');
+        $vacantes = Vacante::where('user_id', auth()->user()->id)->simplePaginate(10);
+        return view('vacantes.index', compact('vacantes'));
     }
 
     /**
@@ -70,7 +71,7 @@ class VacanteController extends Controller
      */
     public function show(Vacante $vacante)
     {
-        //
+        return view('vacantes.show', compact('vacante'));
     }
 
     /**
@@ -81,7 +82,7 @@ class VacanteController extends Controller
      */
     public function edit(Vacante $vacante)
     {
-        //
+        return view('vacantes.edit', compact('vacante'));
     }
 
     /**
@@ -109,7 +110,7 @@ class VacanteController extends Controller
 
     public function imagen(Request $request){
         $image = $request->file('file');
-        $nameImage = time() . '.' . $image->extension() ;
+        $nameImage = 'vacantes/'.time() . '.' . $image->extension() ;
         $image->move( public_path( 'storage/vacantes/'), $nameImage);
 
         return response()->json(['correcto' => $nameImage]);
