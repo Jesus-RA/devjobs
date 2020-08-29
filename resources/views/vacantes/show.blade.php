@@ -4,6 +4,10 @@
     @include('ui.adminnav')
 @endsection
 
+@section('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" integrity="sha512-ZKX+BvQihRJPA8CROKBhDNvoc2aDMOdAlcm7TUQY+35XYtrd3yh95QOOhsPDQY9QnKE0Wqag9y38OIgEvb88cA==" crossorigin="anonymous" />
+@endsection
+
 @section('content')
     <h1 class="text-3xl text-center mt-10">{{ $vacante->titulo }}</h1>
     <div class="mt-10 mb-10 md:flex items-start">
@@ -11,6 +15,7 @@
 
             <p class="block text-gray-700 font-bold my-2">
                 Publicado: <span class="font-normal">{{ $vacante->created_at->diffForHumans() }}</span>
+                por: <span class="font-normal">{{ $vacante->reclutador->name }}</span>
             </p>
 
             <p class="block text-gray-700 font-bold my-2">
@@ -40,7 +45,9 @@
                 </p>
             @endforeach
 
-            <img src="{{ Storage::url($vacante->imagen) }}" alt="" class="w-40 mt-10">
+            <a href="{{ Storage::url($vacante->imagen) }}" data-lightbox="imagen" data-title="Vacante {{ $vacante->titulo }}">
+                <img src="{{ Storage::url($vacante->imagen) }}" alt="" class="w-40 mt-10">
+            </a>
 
             <div class="descripcion mt-10 mb-5">
                 {!! $vacante->descripcion !!}
@@ -48,9 +55,7 @@
 
         </div>
 
-        <aside class="md:w-2/5">
-            2
-        </aside>
+        @include('ui.contacto')
     </div>
     
 @endsection

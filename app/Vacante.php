@@ -4,6 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Categoria;
+use App\Experiencia;
+use App\Ubicacion;
+use App\Salario;
+use App\Candidato;
 
 class Vacante extends Model
 {
@@ -18,8 +22,8 @@ class Vacante extends Model
         'salario_id',
     ];
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function reclutador(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function categoria(){
@@ -36,5 +40,9 @@ class Vacante extends Model
 
     public function salario(){
         return $this->belongsTo(Salario::class);
+    }
+
+    public function candidatos(){
+        return $this->hasMany(Candidato::class);
     }
 }

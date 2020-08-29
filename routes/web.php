@@ -26,3 +26,9 @@ Route::resource('vacantes', 'VacanteController');
 Route::post('/vacantes/imagen', 'VacanteController@imagen')->name('vacantes.imagen');
 
 Route::post('/vacantes/borrarimagen', 'VacanteController@borrarimagen')->name('vacantes.borrar');
+
+// Aplicar para una vacante
+Route::post('/candidatos/store', 'CandidatoController@store')->name('candidatos.store');
+
+// Notificaciones
+Route::get('/notificaciones', 'NotificacionesController')->name('notificaciones');
