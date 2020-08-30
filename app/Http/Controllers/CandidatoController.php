@@ -14,9 +14,14 @@ class CandidatoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // Obteniendo el id pasado por la ruta
+        $id_vacante = $request->route('id');
+
+        $vacante = Vacante::findOrFail($id_vacante);
+
+        return view('candidatos.index', compact('vacante'));
     }
 
     /**
@@ -47,7 +52,7 @@ class CandidatoController extends Controller
         // Almacenar archivo pdf
         if($request->hasFile('cv')){
             $pdf = $request->file('cv');
-            $pdfName = time() . '.' . $pdf->extension();
+            $pdfName =  'cv/' . time() . '.' . $pdf->extension();
             $pdf->move( public_path('/storage/cv'), $pdfName );
         }
 
@@ -58,7 +63,7 @@ class CandidatoController extends Controller
         // Enviar notificación al reclutador
         $vacante = Vacante::find($request->vacante_id);
         $recludador = $vacante->reclutador;
-        $recludador->notify( new NuevoCandidato($vacante->titulo) );
+        $recludador->notify( new NuevoCandidato($vacante->titulo, $vacante->id) );
 
         return redirect()->back()->withSuccess('¡Se ha enviado tu aplicación, suerte!');
     }

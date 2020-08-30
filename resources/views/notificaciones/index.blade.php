@@ -10,11 +10,19 @@
     @if ( count($notificaciones) > 0 )
         <ul class="max-w-md mx-auto mt-10">
             @foreach ($notificaciones as $notificacion)
-                <li class="p-5 border border-gray-400 mb-5">
-                    <p class="mb-4">
-                        Tienes un nuevo candidato en : <span class="font-bold">{{ $notificacion->data['vacante'] }}</span>
-                    </p>
-                </li>
+                <a href=" {{ route('candidatos.index', $notificacion->data['id_vacante']) }} ">
+                    <li class="p-5 border border-gray-400 mb-5">
+                        <p class="mb-4">
+                            Tienes un nuevo candidato en : <span class="font-bold">{{ $notificacion->data['vacante'] }}</span>
+                        </p>
+                        
+                        <p class="mb-4">
+                            Te escribió : <span class="font-bold">{{ $notificacion->created_at->diffForHumans() }}</span>
+                        </p>
+
+                    </li>
+
+                </a>
             @endforeach
         </ul>
     @else
