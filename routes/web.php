@@ -27,6 +27,9 @@ Route::post('/vacantes/imagen', 'VacanteController@imagen')->name('vacantes.imag
 
 Route::post('/vacantes/borrarimagen', 'VacanteController@borrarimagen')->name('vacantes.borrar');
 
+// Cambiar estado de una vacante
+Route::post('/vacantes/{vacante}', 'VacanteController@estado')->name('vacantes.estado');
+
 // Aplicar para una vacante
 Route::get('/candidatos/{id}', 'CandidatoController@index')->name('candidatos.index');
 Route::post('/candidatos/store', 'CandidatoController@store')->name('candidatos.store');

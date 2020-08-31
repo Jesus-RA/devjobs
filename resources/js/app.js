@@ -7,6 +7,11 @@
 require('./bootstrap');
 require('lightbox2');
 
+// Importar VueSweetaler2
+import VueSweetaler2 from 'vue-sweetalert2';
+// Importar los estilos para VueSweetaler2
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 window.Vue = require('vue');
 
 /**
@@ -20,7 +25,12 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+// Indicando su uso
+Vue.use(VueSweetaler2);
+
 Vue.component('lista-skills', require('./components/ListaSkills.vue').default);
+Vue.component('estado-vacante', require('./components/EstadoVacante.vue').default);
+Vue.component('eliminar-vacante', require('./components/EliminarVacante.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
