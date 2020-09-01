@@ -82,7 +82,15 @@ class VacanteController extends Controller
      */
     public function edit(Vacante $vacante)
     {
-        return view('vacantes.edit', compact('vacante'));
+
+        $this->authorize('view', $vacante);
+
+        $categorias = Categoria::all();
+        $experiencias = Experiencia::all();
+        $ubicaciones = Ubicacion::all();
+        $salarios = Salario::all();
+        $skills = Skill::all(['id', 'nombre']);
+        return view('vacantes.edit', compact('vacante','categorias', 'experiencias', 'ubicaciones', 'salarios', 'skills'));
     }
 
     /**
@@ -92,9 +100,14 @@ class VacanteController extends Controller
      * @param  \App\Vacante  $vacante
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vacante $vacante)
+    public function update(VacanteRequest $request, Vacante $vacante)
     {
-        //
+        $this->authorize('update', $vacante);
+
+        $vacante->fill($request->all());
+        $vacante->save();
+
+        return redirect()->route('vacantes.index');
     }
 
     /**
@@ -105,6 +118,9 @@ class VacanteController extends Controller
      */
     public function destroy(Vacante $vacante)
     {
+
+        $this->authorize('delete', $vacante);
+
         $vacante->candidatos()->delete();
         $vacante->delete();
         
