@@ -18,7 +18,7 @@ class VacanteController extends Controller
     public function __construct()
     {
         // User must have been authenticated and verified
-        $this->middleware(['auth', 'verified'])->except('show');
+        $this->middleware(['auth', 'verified'])->except('show', 'buscar');
     }
 
     /**
@@ -28,7 +28,7 @@ class VacanteController extends Controller
      */
     public function index()
     {
-        $vacantes = Vacante::where('user_id', auth()->user()->id)->simplePaginate(10);
+        $vacantes = Vacante::where('user_id', auth()->user()->id)->latest()->simplePaginate(10);
         return view('vacantes.index', compact('vacantes'));
     }
 
@@ -71,6 +71,8 @@ class VacanteController extends Controller
      */
     public function show(Vacante $vacante)
     {
+        if( $vacante->activa === 0 ) return abort(404);
+
         return view('vacantes.show', compact('vacante'));
     }
 
@@ -157,5 +159,34 @@ class VacanteController extends Controller
 
         return response()->json(['response' => 'Correcto']);
 
+    }
+
+    public function buscar(Request $request){
+        
+        $request->validate([
+            'categoria_id' => 'required',
+            'ubicacion_id' => 'required',
+        ]);
+
+        $categoria = $request->categoria_id;
+        $ubicacion = $request->ubicacion_id;
+
+        // Dos formas para realizar un AND en el where
+        $vacantes = Vacante::latest()
+            ->where('categoria_id', $categoria)
+            ->where('ubicacion_id', $ubicacion)
+            ->get();
+
+        // $vacantes = Vacante::latest()->where([
+        //     'categoria_id' => $categoria,
+        //     'ubicacion_id' => $ubicacion,
+        // ])->get();
+
+        return view('buscar.index', compact('vacantes'));
+
+    }
+
+    public function resultados(){
+        
     }
 }

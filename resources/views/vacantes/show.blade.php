@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('navegacion')
-    @include('ui.adminnav')
+    @include('ui.categoriasNav')
 @endsection
 
 @section('styles')

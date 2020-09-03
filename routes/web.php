@@ -18,6 +18,10 @@ Route::get('/', 'InicioController')->name('inicio');
 
 Auth::routes(['verify' => true]);
 
+// Buscar Vacantes
+Route::get('/vacantes/buscar', 'VacanteController@resultados')->name('vacantes.resultados');
+Route::post('/vacantes/buscar', 'VacanteController@buscar')->name('vacantes.buscar');
+
 Route::resource('vacantes', 'VacanteController');
 
 Route::post('/vacantes/imagen', 'VacanteController@imagen')->name('vacantes.imagen');
@@ -33,3 +37,6 @@ Route::post('/candidatos/store', 'CandidatoController@store')->name('candidatos.
 
 // Notificaciones
 Route::get('/notificaciones', 'NotificacionesController')->name('notificaciones');
+
+// Categorías
+Route::get('/categorias/{categoria}', 'CategoriaController@show')->name('categorias.show');
