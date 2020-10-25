@@ -15,13 +15,9 @@
     RewriteRule ^ %1 [L,R=301]
 
     # Redirection no wwww to wwww
-    #RewriteEngine On
-    #RewriteCond %{HTTP_HOST} ^mydevjobs.herokuapp.com/ [NC]
-    #RewriteRule ^(.*)$ https://mydevjobs.herokuapp.com//$1 [L,R=301,NC]
-
     RewriteEngine On
-    RewriteCond %{HTTPS} off
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    RewriteCond %{HTTP_HOST} ^mydevjobs.herokuapp.com/ [NC]
+    RewriteRule ^(.*)$ https://mydevjobs.herokuapp.com//$1 [L,R=301,NC]
 
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
