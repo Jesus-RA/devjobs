@@ -26,7 +26,7 @@
 
         <div class="block lg:w-1/2">
             <img
-                src="{{ asset('img/4321.jpg') }}"
+                src="{{ secure_asset('img/4321.jpg') }}"
                 alt="devjobs"
                 loading="lazy"
                 class="inset-0 h-full w-full object-cover object-center"
