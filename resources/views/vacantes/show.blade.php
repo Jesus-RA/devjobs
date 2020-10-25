@@ -46,7 +46,7 @@
             @endforeach
 
             <a href="{{ Storage::url($vacante->imagen) }}" data-lightbox="imagen" data-title="Vacante {{ $vacante->titulo }}">
-                <img src="{{ Storage::url($vacante->imagen) }}" alt="" class="w-40 mt-10">
+                <img src="{{ Storage::url($vacante->imagen) }}" alt="" class="w-40 mt-10" loading="lazy">
             </a>
 
             <div class="descripcion mt-10 mb-5">
