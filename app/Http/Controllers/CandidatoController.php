@@ -47,7 +47,7 @@ class CandidatoController extends Controller
         $request->validate([
             'nombre' => 'required',
             'email' => 'required|email',
-            'cv' => 'required|mimes:pdf|max:4000',
+            'cv' => 'required|mimes:pdf|max:10000',
             'vacante_id' => 'required',
         ]);
 
