@@ -28,6 +28,7 @@
             <img
                 src="{{ asset('img/4321.jpg') }}"
                 alt="devjobs"
+                loading="lazy"
                 class="inset-0 h-full w-full object-cover object-center"
             >
         </div>
